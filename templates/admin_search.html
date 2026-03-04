@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">Admin Search Results</h2>
+
+<form method="get" action="{{ url_for('admin_search') }}" class="mb-4">
+  <div class="input-group">
+    <input type="text" name="q" class="form-control" placeholder="Search doctors or patients..." value="{{ query }}">
+    <button type="submit" class="btn btn-primary">Search</button>
+  </div>
+</form>
+
+{% if query %}
+  <h4>Search results for "<strong>{{ query }}</strong>"</h4>
+
+  <!-- Doctors -->
+  <h5 class="mt-4">Doctors</h5>
+  {% if doctors %}
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Specialization</th>
+        <th>Status</th>
+        <th>Contact</th>
+        <th>Appointments</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for d in doctors %}
+      <tr>
+        <td>{{ d.name }}</td>
+        <td>{{ d.specialization or '-' }}</td>
+        <td>
+          {% if d.approved %}<span class="badge bg-success">Approved</span>
+          {% elif d.rejected %}<span class="badge bg-danger">Rejected</span>
+          {% else %}<span class="badge bg-warning text-dark">Pending</span>{% endif %}
+        </td>
+        <td>{{ d.contact }}</td>
+        <td>
+          <ul class="mb-0">
+            {% for a in d.appointments %}
+              <li>{{ a.date }} {{ a.time }} — {{ a.patient.name }}</li>
+            {% else %}
+              <li>No appointments</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <p>No doctors found.</p>
+  {% endif %}
+
+  <!-- Patients -->
+  <h5 class="mt-4">Patients</h5>
+  {% if patients %}
+  <table class="table table-bordered table-striped">
+    <thead class="table-secondary">
+      <tr>
+        <th>Name</th>
+        <th>Contact</th>
+        <th>Appointments</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in patients %}
+      <tr>
+        <td>{{ p.name }}</td>
+        <td>{{ p.contact }}</td>
+        <td>
+          <ul class="mb-0">
+            {% for a in p.appointments %}
+              <li>{{ a.date }} {{ a.time }} — Dr. {{ a.doctor.name }}</li>
+            {% else %}
+              <li>No appointments</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <p>No patients found.</p>
+  {% endif %}
+{% else %}
+  <p>Type a name or specialization to search.</p>
+{% endif %}
+{% endblock %}

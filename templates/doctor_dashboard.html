@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+/* ================= ANIMATED GRADIENT BACKGROUND ================= */
+.gradient-bg-dashboard {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        -45deg,
+        #FF9933, /* saffron */
+        #ffffff, /* white */
+        #138808, /* green */
+        #3b82f6  /* blue */
+    );
+    background-size: 400% 400%;
+    animation: gradientShift 25s ease infinite;
+    z-index: -1;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ================= GLASS CARD ================= */
+.card-glass {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(16px);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+    margin-bottom: 2rem;
+}
+
+/* ================= TITLES ================= */
+h2, h5 {
+    font-weight: 700;
+    color: #0c2340;
+}
+
+/* ================= TABLE ================= */
+.table thead {
+    font-weight: bold;
+    background-color: rgba(59, 130, 246, 0.9);
+    color: white;
+}
+.table tbody tr:hover {
+    background-color: rgba(59, 130, 246, 0.1);
+}
+.table td, .table th {
+    vertical-align: middle;
+}
+
+/* ================= BUTTONS ================= */
+.btn {
+    border-radius: 12px;
+    transition: 0.3s;
+}
+.btn-primary:hover, .btn-info:hover, .btn-success:hover, .btn-danger:hover {
+    opacity: 0.9;
+}
+
+/* ================= CONTAINER ================= */
+.container-dashboard {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+
+</style>
+
+<!-- Animated Background -->
+<div class="gradient-bg-dashboard"></div>
+
+<div class="container container-dashboard">
+
+  <!-- HEADER -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>👨‍⚕️ Doctor Dashboard</h2>
+    <a class="btn btn-danger" href="{{ url_for('logout') }}">Logout</a>
+  </div>
+
+  <!-- APPOINTMENTS CARD -->
+  <div class="card card-glass">
+    <h5 class="mb-3">📋 Appointments</h5>
+    <table class="table table-bordered table-hover text-center">
+      <thead>
+        <tr>
+          <th>Patient</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if appointments %}
+          {% for a in appointments %}
+          <tr>
+            <td>{{ a.patient.name }}</td>
+            <td>{{ a.date }}</td>
+            <td>{{ a.time }}</td>
+            <td>
+              {% if a.status == "Pending" %}
+                <span class="badge bg-primary">Pending</span>
+              {% elif a.status == "Completed" %}
+                <span class="badge bg-success">Completed</span>
+              {% elif a.status == "Cancelled" %}
+                <span class="badge bg-secondary">Cancelled</span>
+              {% else %}
+                <span class="badge bg-warning text-dark">{{ a.status }}</span>
+              {% endif %}
+            </td>
+            <td>
+              {% if a.status != "Cancelled" and a.status != "Completed" %}
+                <a class="btn btn-success btn-sm mb-1" href="{{ url_for('update_status', appointment_id=a.id, status='Completed') }}">Complete</a>
+                <a class="btn btn-danger btn-sm mb-1" href="{{ url_for('update_status', appointment_id=a.id, status='Cancelled') }}">Cancel</a>
+                <a class="btn btn-info btn-sm mb-1" href="{{ url_for('prescribe', appointment_id=a.id) }}">Prescribe</a>
+              {% else %}
+                <button class="btn btn-secondary btn-sm" disabled>Not Allowed</button>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        {% else %}
+          <tr><td colspan="5">No appointments.</td></tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+{% endblock %}

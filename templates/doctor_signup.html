@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.card-glass {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(16px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+    max-width: 500px;
+    margin: 3rem auto;
+}
+
+h2 {
+    text-align: center;
+    font-weight: 700;
+    color: #0c2340;
+    margin-bottom: 2rem;
+}
+
+label {
+    font-weight: 500;
+    margin-top: 1rem;
+}
+
+input, select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.25rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    margin-top: 1.5rem;
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: 12px;
+    border: none;
+    background-color: #0d6efd;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+p {
+    text-align: center;
+    margin-top: 1rem;
+}
+</style>
+
+<div class="card card-glass">
+    <h2>👨‍⚕️ Doctor Registration</h2>
+    <form method="POST">
+        <label>Username:</label>
+        <input type="text" name="username" required>
+
+        <label>Name:</label>
+        <input type="text" name="name" required>
+
+        <label>Department:</label>
+        <select name="department" required>
+            <option value="">--Select Department--</option>
+            {% for dept in departments %}
+                <option value="{{ dept.id }}">{{ dept.name }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Contact:</label>
+        <input type="text" name="contact" required>
+
+        <label>Password:</label>
+        <input type="password" name="password" required>
+
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <p><a href="{{ url_for('login') }}">Back to Login</a></p>
+</div>
+
+{% endblock %}

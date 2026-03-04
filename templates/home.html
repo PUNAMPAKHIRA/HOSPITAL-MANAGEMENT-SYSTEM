@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Welcome to MyHospital{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="hero">
+    <h1 class="display-4">Welcome to MyHospital</h1>
+    <p class="lead">Providing quality healthcare with compassion and expertise</p>
+    <a href="{{ url_for('login') }}" class="btn btn-light btn-lg mx-2">Login</a>
+    <a href="{{ url_for('register') }}" class="btn btn-outline-light btn-lg mx-2">Register</a>
+</div>
+
+<!-- Achievements / Stats -->
+<div class="row text-center mt-5">
+    <div class="col-md-4">
+        <div class="card shadow p-4">
+            <h2>100+</h2>
+            <p>Doctors</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow p-4">
+            <h2>1000+</h2>
+            <p>Patients Served</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow p-4">
+            <h2>50+</h2>
+            <p>Successful Surgeries</p>
+        </div>
+    </div>
+</div>
+
+<!-- About Section -->
+<div class="mt-5 p-5 bg-primary text-white rounded shadow-sm">
+    <h3>About MyHospital</h3>
+    <p>
+        MyHospital is a state-of-the-art healthcare facility dedicated to providing exceptional medical services.
+        Our team of experienced doctors and staff are committed to ensuring your well-being.
+    </p>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Book Appointment with {{ doctor.name }}</h3>
+<form method="POST">
+  <div class="mb-2">
+    <label>Date</label>
+    <input type="date" name="date" class="form-control" required>
+  </div>
+  <div class="mb-2">
+  <label>Time Slot</label>
+  <select name="time" class="form-select" required>
+    {% for hour in range(11, 18) %}
+      <option>{{ '%02d:00' % hour }} AM</option>
+      <option>{{ '%02d:30' % hour }} AM</option>
+    {% endfor %}
+    <option>06:00 PM</option>
+  </select>
+</div>
+
+  <button class="btn btn-primary" type="submit">Book</button>
+  <a class="btn btn-link" href="{{ url_for('patient_dashboard') }}">Back</a>
+</form>
+{% endblock %}

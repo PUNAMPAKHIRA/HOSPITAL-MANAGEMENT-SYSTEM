@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bharat Sevashram Hospital</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    scroll-behavior: smooth;
+    font-family: system-ui, sans-serif;
+    color: #1e293b;
+}
+
+/* ================= ANIMATED GRADIENT BACKGROUND ================= */
+.gradient-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom right, #FF9933, #ffffff, #138808);
+    background-size: 400% 400%;
+    animation: gradientShift 25s ease infinite;
+    z-index: -1;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+}
+
+/* ================= GLASS SECTIONS ================= */
+section {
+    padding: 5rem 0;
+}
+
+.glass-section {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    border-radius: 24px;
+    padding: 4rem 2rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+/* ================= NAVBAR ================= */
+.navbar-custom {
+    background: rgba(15, 118, 110, 0.85);
+    backdrop-filter: blur(10px);
+}
+
+/* ================= HERO ================= */
+.hero {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    color: #0c2340;
+}
+
+.hero h1 {
+    font-weight: 800;
+}
+
+.rounded-img {
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+/* ================= TITLES ================= */
+.section-title {
+    font-weight: 800;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+footer {
+    background: rgba(15, 118, 110, 0.85);
+    backdrop-filter: blur(10px);
+    color: white;
+}
+
+/* ================= TESTIMONIAL ================= */
+.testimonial-img {
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+.testimonial-text {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #0c2340;
+    margin-top: 1rem;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Animated Background -->
+<div class="gradient-bg"></div>
+
+
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top navbar-custom">
+    <div class="container">
+        <a class="navbar-brand fw-bold fs-4">🏥 Bharat Sevashram Hospital</a>
+        <div class="ms-auto">
+            <a href="{{ url_for('login') }}" class="btn btn-outline-light me-2">Login</a>
+            <a href="{{ url_for('register') }}" class="btn btn-light text-dark">Register</a>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h1 class="display-4">Seva • Suraksha • Swasthya</h1>
+                <p class="fs-5 mt-3">
+                    Professional, government healthcare serving every citizen of India.
+                </p>
+                <a href="{{ url_for('register') }}" class="btn btn-warning btn-lg mt-3">
+                    Book Appointment
+                </a>
+            </div>
+            <div class="col-md-6 text-center">
+                <img src="https://images.pexels.com/photos/5327584/pexels-photo-5327584.jpeg?auto=compress&cs=tinysrgb&w=600" class="img-fluid rounded-img" width="360" alt="Female Doctor">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section>
+    <div class="container">
+        <div class="glass-section">
+            <h2 class="section-title">About Bharat Sevashram Hospital</h2>
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="fs-5 text-muted">
+                        Bharat Sevashram Hospital is a government NABH-accredited multi-specialty healthcare institution dedicated to accessible, ethical, and high-quality medical care. We ensure transparency, digital health records, and patient dignity.
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <img src="https://images.pexels.com/photos/40568/medical-appointment-doctor-healthcare-40568.jpeg?auto=compress&cs=tinysrgb&w=600" class="img-fluid rounded-img">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DEPARTMENTS -->
+<section>
+    <div class="container">
+        <div class="glass-section">
+            <h2 class="section-title">Clinical Departments</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <ul>
+                        <li>Cardiology & Cardiac Surgery</li>
+                        <li>Neurology & Neurosurgery</li>
+                        <li>Orthopedics</li>
+                        <li>Pulmonology</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul>
+                        <li>Gynecology & Obstetrics</li>
+                        <li>Pediatrics & Neonatology</li>
+                        <li>Nephrology</li>
+                        <li>Urology</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul>
+                        <li>Oncology</li>
+                        <li>Radiology & Imaging</li>
+                        <li>Diagnostics</li>
+                        <li>Emergency & Trauma</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section>
+    <div class="container">
+        <div class="glass-section text-center">
+            <h2 class="section-title">What Our Patients Say</h2>
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <img src="https://images.pexels.com/photos/33932447/pexels-photo-33932447.jpeg" class="img-fluid testimonial-img" alt="Happy Hospital Family">
+
+                </div>
+                <div class="col-md-6">
+                    <p class="testimonial-text">
+                        "Bharat Sevashram Hospital took care of our family with compassion and professionalism. The staff and doctors are truly dedicated, making healthcare accessible and comfortable. Highly recommended!"
+                    </p>
+                    <p class="fw-bold mt-3">– Ramesh & Family, Kolkata</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section>
+    <div class="container">
+        <div class="glass-section">
+            <h2 class="section-title">Contact & Locations</h2>
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <strong>Kolkata</strong><br>
+                    EM Bypass, Salt Lake<br>
+                    ☎ +91 33 4567 8900
+                </div>
+                <div class="col-md-4">
+                    <strong>Delhi NCR</strong><br>
+                    Sector 62, Noida<br>
+                    ☎ +91 120 498 2100
+                </div>
+                <div class="col-md-4">
+                    <strong>Bengaluru</strong><br>
+                    Whitefield Road<br>
+                    ☎ +91 80 4123 7788
+                </div>
+            </div>
+            <hr>
+            <p class="text-center mt-3">
+                📧 info@bharatseva.gov.in | appointments@bharatseva.gov.in
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="text-center py-4">
+    © 2025 Bharat Sevashram Hospital • Government of India • Ministry of Health & Family Welfare
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+/* ================= GLASS CARD ================= */
+.card-glass {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(16px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+    margin-bottom: 2rem;
+}
+
+/* ================= TABLE ================= */
+.table thead {
+    font-weight: bold;
+    background-color: rgba(59, 130, 246, 0.9);
+    color: white;
+}
+.table tbody tr:hover {
+    background-color: rgba(59, 130, 246, 0.1);
+}
+.table td, .table th {
+    vertical-align: middle;
+    text-align: center;
+}
+
+/* ================= BUTTONS ================= */
+.btn {
+    border-radius: 12px;
+    transition: 0.3s;
+}
+.btn-primary:hover, .btn-info:hover, .btn-success:hover, .btn-danger:hover {
+    opacity: 0.9;
+}
+
+/* ================= HEADER ================= */
+h2 {
+    font-weight: 700;
+    color: #0c2340;
+    margin-bottom: 1.5rem;
+}
+
+</style>
+
+<div class="container mt-4">
+
+  <h2>📅 Your Scheduled Appointments</h2>
+
+  <div class="card card-glass">
+    {% if appointments %}
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>Patient Name</th>
+          <th>Contact</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for a in appointments %}
+        <tr>
+          <td>{{ a.patient.name if a.patient else 'N/A' }}</td>
+          <td>{{ a.patient.contact if a.patient else 'N/A' }}</td>
+          <td>{{ a.date }}</td>
+          <td>{{ a.time }}</td>
+          <td>
+            {% if a.status == "Pending" %}
+              <span class="badge bg-primary">Pending</span>
+            {% elif a.status == "Completed" %}
+              <span class="badge bg-success">Completed</span>
+            {% elif a.status == "Cancelled" %}
+              <span class="badge bg-secondary">Cancelled</span>
+            {% else %}
+              <span class="badge bg-warning text-dark">{{ a.status }}</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if a.status != 'Completed' %}
+              <a href="{{ url_for('update_status', appointment_id=a.id, status='Completed') }}" class="btn btn-success btn-sm mb-1">Mark Completed</a>
+            {% endif %}
+            {% if a.status != 'Cancelled' %}
+              <a href="{{ url_for('update_status', appointment_id=a.id, status='Cancelled') }}" class="btn btn-danger btn-sm mb-1">Cancel</a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <p class="text-center fs-5">No appointments scheduled yet.</p>
+    {% endif %}
+  </div>
+
+</div>
+
+{% endblock %}

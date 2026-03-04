@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.card-glass {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(16px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+    max-width: 900px;
+    margin: 3rem auto;
+}
+
+h2, h3 {
+    color: #0c2340;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.info {
+    background: rgba(240, 248, 255, 0.7);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+}
+
+label {
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    resize: vertical;
+}
+
+button {
+    background-color: #0d6efd;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.3s;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.back {
+    margin-top: 15px;
+    display: inline-block;
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.back:hover {
+    text-decoration: underline;
+}
+</style>
+
+<div class="card card-glass">
+
+    <h2>🩺 Prescribe Treatment</h2>
+
+    <!-- Patient & Appointment Details -->
+    <div class="info">
+        <p><strong>Patient Name:</strong> {{ appt.patient.name }}</p>
+        <p><strong>Age:</strong> {{ appt.patient.age or "N/A" }}</p>
+        <p><strong>Gender:</strong> {{ appt.patient.gender or "N/A" }}</p>
+        <p><strong>Appointment Date:</strong> {{ appt.date }}</p>
+        <p><strong>Time:</strong> {{ appt.time }}</p>
+    </div>
+
+    <!-- Previous Medical History -->
+    <h3>📜 Previous Medical History</h3>
+
+    {% if history %}
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Doctor</th>
+                <th>Diagnosis</th>
+                <th>Medicines</th>
+            </tr>
+            {% for h in history %}
+            <tr>
+                <td>{{ h.date }}</td>
+                <td>{{ h.doctor.name if h.doctor else "N/A" }}</td>
+                <td>{{ h.treatment }}</td>
+                <td>{{ h.medicine }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No previous treatment records found.</p>
+    {% endif %}
+
+    <!-- New Prescription -->
+    <h3>✍️ New Prescription</h3>
+
+    <form method="POST">
+        <label>Diagnosis / Treatment</label>
+        <textarea name="treatment" rows="4" required>{{ appt.treatment or "" }}</textarea>
+
+        <label>Medicines</label>
+        <textarea name="medicine" rows="4" required>{{ appt.medicine or "" }}</textarea>
+
+        <button type="submit">Save Prescription</button>
+    </form>
+
+    <a href="{{ url_for('doctor_dashboard') }}" class="back">⬅ Back to Dashboard</a>
+
+</div>
+
+{% endblock %}

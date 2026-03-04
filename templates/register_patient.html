@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+.card-glass {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(16px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+}
+
+h3 {
+    color: #0c2340;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+input.form-control {
+    border-radius: 12px;
+    padding: 10px;
+}
+
+button {
+    background-color: #198754;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    width: 100%;
+    transition: 0.3s;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+</style>
+
+<div class="row justify-content-center mt-5">
+  <div class="col-md-7">
+    <div class="card card-glass p-4 shadow-sm">
+
+      <h3>🧑‍⚕️ Patient Registration</h3>
+
+      <form method="POST">
+        {{ form.hidden_tag() }}
+
+        <div class="mb-3">
+          {{ form.name.label(class_='form-label') }}
+          {{ form.name(class_='form-control') }}
+        </div>
+
+        <div class="mb-3">
+          {{ form.email.label(class_='form-label') }}
+          {{ form.email(class_='form-control') }}
+        </div>
+
+        <div class="mb-3">
+          {{ form.password.label(class_='form-label') }}
+          {{ form.password(class_='form-control') }}
+        </div>
+
+        <div class="mb-3">
+          {{ form.password2.label(class_='form-label') }}
+          {{ form.password2(class_='form-control') }}
+        </div>
+
+        <div class="mb-3">
+          {{ form.submit(class_='btn btn-success') }}
+        </div>
+
+      </form>
+
+      <p class="text-center mt-3">
+        <a href="{{ url_for('login') }}" class="text-decoration-none text-primary">⬅ Back to Login</a>
+      </p>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

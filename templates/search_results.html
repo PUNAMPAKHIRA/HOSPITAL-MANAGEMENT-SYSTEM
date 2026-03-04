@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Search results for "{{ q }}"</h3>
+
+<h4>Doctors</h4>
+<ul>
+  {% for d in doctors %}
+  <li>{{ d.user.name }} — {{ d.specialization }} ({{ d.department.name if d.department else '' }})</li>
+  {% else %}
+  <li>No doctors found</li>
+  {% endfor %}
+</ul>
+
+<h4>Patients</h4>
+<ul>
+  {% for p in patients %}
+  <li>{{ p.name }} — {{ p.email }}</li>
+  {% else %}
+  <li>No patients found</li>
+  {% endfor %}
+</ul>
+{% endblock %}
